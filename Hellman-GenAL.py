@@ -1,6 +1,6 @@
 from random import randint
 """
-Алгорим Меркля-Хелмана Версия 3
+Алгорим Меркля-Хелмана Версия 4
 """
 def createSuperincreasingSequence(n):
     sequence = [1]
@@ -71,59 +71,69 @@ def createKey(n):
     sequence = createSuperincreasingSequence(n)  # супервозрастающая последовательность
     publicKey = []
     randInt1 = generate_prime(sum(sequence))
-    randInt2 = randInt1 - randint(0, randInt1)  #r
+    randInt2 = randint(1, randInt1)  #r
     for i in range(n):
         publicKey.append((sequence[i] * randInt2) % randInt1)
     return sequence, publicKey, randInt1, randInt2
 
-
 def encrypt(message, publicKey):
     encrypted = []
-
+    print("==============ШИФРОВАНИЕ==============")
     for word in message:
-        # print("word,messege",word,message)
         wordTemp = []
+        offset = 0  # Смещение для publicKey
 
-        for char in word:
-            print("char,word", char,word)
+        for index, char in enumerate(word):
+            print(f"\nОбрабатываем элемент {index}: {char}")
             result = 0
 
             for i, bit in enumerate(char):
-                print("i,bit",i,bit, publicKey[i])
-                result += int(bit) * publicKey[i]
+                key_index = offset + i  # Используем смещение для publicKey
+
+                if key_index < len(publicKey):  # Проверяем, чтобы не выйти за границы
+                    print(f"i: {i}, bit: {bit}, publicKey[{key_index}]: {publicKey[key_index]}")
+                    result += int(bit) * publicKey[key_index]
+                else:
+                    print(f"Пропускаем i={i}, key_index={key_index} (выход за границы)")
 
             wordTemp.append(result)
+            offset += len(char)  # Увеличиваем смещение для следующего символа
 
         encrypted.append(wordTemp)
 
     return encrypted
 
-
 def decrypt(message, sequence, randInt1, randInt2):
-    inverse = modInverse(randInt2, randInt1)
-
+    inverse = modInverse(randInt2, randInt1)  # Обратный ключ
+    print("==============РАСШИФРОВКА==============")
     decrypted = []
+    offset = 0  # Смещение для sequence
+    n = 1
 
     for word in message:
         wordTemp = []
 
         for char in word:
-            moduled = (char * inverse) % randInt1
+            print("\nОбрабатываем символ:", char)
+            moduled = (char * inverse) % randInt1  # Обратное преобразование
             charTemp = ""
 
-            for i in range(7, -1, -1):
-                if moduled >= sequence[i]:
-                    moduled -= sequence[i]
-                    charTemp += '1'
-                else:
-                    charTemp += '0'
+            for i in range(8*n-1,offset,-1):
+                key_index =  i  # Используем смещение для publicKey
+                if key_index < len(sequence):  # Проверка, чтобы не выйти за границы
+                    print(f"Индекс {i}, key_index {key_index}: {sequence[key_index]}")
+                    if moduled >= sequence[key_index]:
+                        moduled -= sequence[key_index]
+                        charTemp += '1'
+                    else:
+                        charTemp += '0'
 
-            wordTemp.append(charTemp[::-1])
-
+            wordTemp.append(charTemp[::-1])  # Переворачиваем строку
+            offset += 8
+            n += 1
         decrypted.append(wordTemp)
-
+        offset += len(word)  # Увеличиваем `offset` для следующего слова
     return decrypted
-
 
 if __name__ == "__main__":
     message = input("Введите текст:").split()
@@ -133,22 +143,21 @@ if __name__ == "__main__":
 
     print("q:", randInt1)
     print("r:", randInt2)
-    print("Публичный ключ:", publicKey)
+    print("Открытый ключ:", publicKey)
 
     binaryMessage = convertToBinary(message)
 
     encrypted = encrypt(binaryMessage, publicKey)
-    print("========",encrypted)
-    print(sum(encrypted[0]))
+    encrypted_result = (sum(encrypted[0]))
 
-
-
-    print("\nЗашифрованное сообщение \"{}\"\n".format(formatMessage(encrypted, "binary")))
-    print(len(format(formatMessage(encrypted, "binary"))))
-
+    print("\nЗашифрованное сообщение \"{}\"\n".format(encrypted_result))
     decrypted = decrypt(encrypted, sequence, randInt1, randInt2)
-    print("ff",decrypted)
+    print("\n\nБуквы в двоичном представлении",decrypted)
 
     stringMessage = convertToString(decrypted)
 
     print("Расшифрованное сообщение \"{}\"".format(formatMessage(stringMessage, "string")))
+
+
+
+
