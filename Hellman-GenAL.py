@@ -10,7 +10,7 @@ from itertools import product
 Сброс с мутацией лучшей особи по проценту mutation_rate_check. 
 Оставление лучшей особи или рандомной при сбросе. Распараллеливание ver new6.
 Добавлен выбор использования генерации классической популяции или прогрессивной
-Уходим от букв в пользу битовой последовательности.
+Уходим от букв в пользу битовой последовательности. Добавлен "поломаный" алгоритм Меркла, доработана расшифровка."
 """
 
 def check_encrypted_result_uniqueness(publicKey, encrypted_result):
@@ -109,7 +109,7 @@ def createKey(n):
     randInt1 = generate_prime(sum(sequence))
 
     while True:
-        randInt2 = randint(1, randInt1//10)  #r
+        randInt2 = randint(1, randInt1)  #r
         if gcd(randInt1, randInt2) == 1:
             break
     for i in range(n):
@@ -117,24 +117,39 @@ def createKey(n):
     return sequence, publicKey, randInt1, randInt2
 
 
-def createKey_random(n):
-    publicKey_random = []
-    last_int = 0
+def createKey_2(n, special_index):
+
+    sequence = createSuperincreasingSequence_2(n, special_index)  # супервозрастающая последовательность
+    publicKey = []
+    randInt1 = generate_prime(sum(sequence))
+
+    while True:
+        randInt2 = randint(1, randInt1)  #r
+        if gcd(randInt1, randInt2) == 1:
+            break
     for i in range(n):
-        int = randint(1, 100)
-        last_int += int
-        publicKey_random.append(last_int)
+        publicKey.append((sequence[i] * randInt2) % randInt1)
+    return sequence, publicKey, randInt1, randInt2
 
-    return publicKey_random
+def createSuperincreasingSequence_2(n, special_index):
+    sequence = [1]
+    count = 0
 
-# def createKey_random(n):
-#     publicKey_random = []
-#     for i in range(n):
-#         int = randint(10, 100)
-#
-#         publicKey_random.append(int)
-#
-#     return publicKey_random
+    for _ in range(n - 1):
+        last_app = sequence[-1]
+
+        if count == special_index-2:
+            #print(f'count: {count}, special_index: {special_index}')
+            candidate = -1
+            while candidate in sequence:
+                candidate -= 1
+            sequence.append(candidate)
+
+        else:
+            sequence.append(sum(sequence) + randint(1, 100))
+        count += 1
+
+    return sequence
 
 def encrypt(bit_sequence, publicKey):
     print("==============ШИФРОВАНИЕ==============")
@@ -445,8 +460,12 @@ if __name__ == "__main__":
             if flag_ver_encrypt is None:
                 bit_input = input("Введите битовую последовательность через пробел (например: 0 1 1 0 ...): ")
                 bit_sequence = list(map(int, bit_input.strip().split()))
-                publicKey = createKey_random(len(bit_sequence))
-                print("\nОткрытый ключ:", publicKey)
+                sequence, publicKey, randInt1, randInt2 = createKey_2(len(bit_sequence), 4)  # Не менее 3-го индекса
+                print('\n\nCупервозрастающая последовательность:', sequence)
+                print("q:", randInt1)
+                print("r:", randInt2)
+                print("Открытый ключ:", publicKey)
+                # Шифруем
                 encrypted_result = encrypt(bit_sequence, publicKey)
                 print(f"\nЗашифрованная сумма: {encrypted_result}")
 
@@ -554,21 +573,6 @@ if __name__ == "__main__":
                 #     (1, 0.6, 100
                 #     # (1, 0.5, 500),
                 #     # (1, 0.5, 1000)
-                # ]
-
-
-                # mutation_test_cases = [
-                #     # (1, 0.4, 250),
-                #     # (1, 0.4, 500),
-                #     # (1, 0.4, 1000),
-                #     # (1, 0.6, 250),
-                #     # (1, 0.6, 500),
-                #     # (1, 0.6, 1000),
-                #     # (1, "-", 250),
-                #     (1, "-", 500),000),
-                #                 #     # (1, 0.6, 1000),
-                #                 #     # (1, 0.5, 250),
-                #     # (1, "-", 1000)
                 # ]
 
                 # Разные кроссоверы
