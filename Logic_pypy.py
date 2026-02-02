@@ -300,22 +300,34 @@ def genetic_algorithm(b, C, pop_size, generations, mutation_rate,mutation_rate_c
     return best, generations
 
 #функция реализующая процесс тестирования модели Голдберга
-def run_test(pop_size, generations,mutation_rate, mutation_rate_check, gen_check, crossover_method, publicKey, encrypted_result, flag_ver,gen_ver, save_file):
+def run_test(pop_size, generations,mutation_rate, mutation_rate_check, gen_check, crossover_method, publicKey, encrypted_result, flag_ver,gen_ver, save_file, multi):
     start_time = time()
-    if flag_ver == "∞":
-        gen_check = "-"
     print(
         f"\nТест: crossover={crossover_method.__name__}, mutation_rate={mutation_rate}, mutation_rate_check={mutation_rate_check}, gen_check={gen_check}")
-    best_solution, generations = genetic_algorithm(
-        publicKey, encrypted_result,
-        pop_size, generations,
-        mutation_rate=mutation_rate,
-        mutation_rate_check=mutation_rate_check,
-        gen_check=gen_check,
-        crossover_func=crossover_method,
-        flag_ver=flag_ver,
-        gen_ver=gen_ver
-    )
+
+    if multi != "":
+        best_solution, generations = genetic_algorithm(
+            publicKey, encrypted_result,
+            pop_size, generations,
+            mutation_rate=mutation_rate,
+            mutation_rate_check=mutation_rate_check,
+            gen_check=gen_check,
+            crossover_func=crossover_method,
+            flag_ver=flag_ver,
+            gen_ver=gen_ver
+        )
+    else:
+        best_solution, generations = algoritm_parallel(
+            publicKey, int(encrypted_result),
+            int(pop_size), float(mutation_rate),
+            mutation_rate_check,
+            gen_check,
+            crossover_method, flag_ver, gen_ver,
+            generations, num_processes=4
+        )
+
+    if flag_ver == "∞":
+        gen_check = "-"
     end_time = time()
     execution_time = end_time - start_time
     fitness_value = fitness(best_solution, publicKey, encrypted_result)
@@ -361,12 +373,13 @@ def test_genetic_algorithm(pop_size, generations,publicKey, encrypted_result, fl
         if multi != "":
             # --- Последовательный запуск
             for params in test_params:
-                result = run_test(*params)
+                result = run_test(*params,multi)
                 results.append(result)
         else:
             # --- Параллельный запуск
-            with multiprocessing.Pool(processes=4) as pool:
-                results = pool.starmap(run_test, test_params)
+            for params in test_params:
+                result = run_test(*params,multi)
+                results.append(result)
 
         end_program_time = time()
         total_program_time = end_program_time - start_program_time
@@ -382,6 +395,7 @@ def test_genetic_algorithm(pop_size, generations,publicKey, encrypted_result, fl
 #функция реализующая запуск распараллеленной модифицированной модели Голдберга
 def algoritm_parallel(b, C, pop_size, mutation_rate, mutation_rate_check,
                       gen_check, crossover_func, flag_ver,gen_ver, generations, num_processes=4):
+
     n = len(b)
     if gen_ver == "Классическая":
         population = [random.choices([0, 1], k=n) for _ in range(pop_size)]
@@ -400,15 +414,18 @@ def algoritm_parallel(b, C, pop_size, mutation_rate, mutation_rate_check,
                 worst_fitness = fitness(survivors[-1], b, C)
         population = survivors
 
-    chunk_size = pop_size // num_processes
-    population_chunks = [population[i:i + chunk_size] for i in range(0, pop_size, chunk_size)]
+    k, m = divmod(pop_size, num_processes)
+    population_chunks = [
+        population[i * k + min(i, m):(i + 1) * k + min(i + 1, m)]
+        for i in range(num_processes)
+    ]
 
     manager = Manager()
     stop_flag = manager.Event()
     result_holder = manager.list()
 
     args_list = [
-        (chunk, b, C, generations, mutation_rate, mutation_rate_check//4, gen_check,
+        (chunk, b, C, generations, mutation_rate, mutation_rate_check, gen_check,
          crossover_func, flag_ver, stop_flag, result_holder)
         for chunk in population_chunks
     ]
