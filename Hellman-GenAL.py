@@ -7,7 +7,8 @@ import multiprocessing
 Алгорим Меркля-Хелмана Версия 4/ Алгорим создания рандомного ключа и последовательности (createKey_random).
 Генетический алгоритм одно, двухточечный кросс, мутация одного-двух бит по очереди.
 Сброс с мутацией лучшей особи по проценту mutation_rate_check. 
-Оставление лучшей особи или рандомной при сбросе. Распараллеливание
+Оставление лучшей особи или рандомной при сбросе. Распараллеливание ver new6.
+createKey(n) - изменено для алгоритма Мекла_хеллмана. Старое закоментировано.
 """
 #Модули для Алгоритма Меркла-Хеллмана
 def createSuperincreasingSequence(n):
@@ -79,8 +80,21 @@ def gcd(a, b):
         a, b = b, a % b  # Алгоритм Евклида
     return a
 
+# def createKey(n):
+#     sequence = createSuperincreasingSequence(n)  # супервозрастающая последовательность
+#     publicKey = []
+#     randInt1 = generate_prime(sum(sequence))
+#
+#     while True:
+#         randInt2 = randint(1, randInt1//1000)  #r
+#         if gcd(randInt1, randInt2) == 1:
+#             break
+#     for i in range(n):
+#         publicKey.append((sequence[i] * randInt2) % randInt1)
+#     return sequence, publicKey, randInt1, randInt2
+
 def createKey(n):
-    sequence = createSuperincreasingSequence(n)  # супервозрастающая последовательность
+    sequence = createKey_random(n)  # супервозрастающая последовательность
     publicKey = []
     randInt1 = generate_prime(sum(sequence))
 
@@ -97,10 +111,9 @@ def createKey_random(n):
     publicKey_random = []
     last_int = 0
     for i in range(n):
-        int = randint(10, 100)
+        int = randint(1, 100)
         last_int += int
         publicKey_random.append(last_int)
-
 
     return publicKey_random
 
@@ -257,7 +270,7 @@ def crossover_two(parent1, parent2, b, C):
 
     return child1, child2
 
-def genetic_algorithm(b, C, pop_size=1000, generations=100000, mutation_rate=1,mutation_rate_check=0.6, gen_check=500, crossover_func=None, flag_ver = None):
+def genetic_algorithm(b, C, pop_size=500, generations=100000, mutation_rate=1,mutation_rate_check=0.6, gen_check=500, crossover_func=None, flag_ver = None):
     #print(f"Идеальное с fitness {fitness(a, b, C)}")
 
     n = len(b)
@@ -277,7 +290,7 @@ def genetic_algorithm(b, C, pop_size=1000, generations=100000, mutation_rate=1,m
                 for _ in range(pop_size - 1):
                     mutated = mutate_check(best, mutation_rate_check,b,C)
                     new_population.append(mutated)
-                print(f"\nПосле {gen+1} поколений: Лучшее решение {best} с fitness {fitness(best, b, C)}")
+                    #print(f"\nПосле {gen+1} поколений: Лучшее решение {best} с fitness {fitness(best, b, C)}")
             else:
                 for i in range(len(population)):
                     parent1 = population[i]
@@ -293,7 +306,7 @@ def genetic_algorithm(b, C, pop_size=1000, generations=100000, mutation_rate=1,m
             # Вместо выбора лучшей особи создаем новую случайную популяцию
             if (gen + 1) % gen_check == 0:
                 new_population = [random.choices([0, 1], k=n) for _ in range(pop_size)]
-                print(f"\nПосле {gen + 1} поколений: Сгенерирована новая случайная популяция")
+                #print(f"\nПосле {gen + 1} поколений: Сгенерирована новая случайная популяция")
             else:
                 for i in range(len(population)):
                     parent1 = population[i]
@@ -305,11 +318,11 @@ def genetic_algorithm(b, C, pop_size=1000, generations=100000, mutation_rate=1,m
                     new_population.append(best)
             population = sorted(new_population, key=lambda x: fitness(x, b, C))[:pop_size]
 
-        # if gen % 250 == 0:
-        #     print(f"\nПоколение {gen}:")
-        #     print("Популяция:")
-        #     for individual in population[:8]:
-        #         print(f"{individual} с fitness {fitness(individual, b, C)}")
+        if gen % 3000 == 0:
+            print(f"\nПоколение {gen}:")
+            print("Популяция:")
+            for individual in population[:8]:
+                print(f"{individual} с fitness {fitness(individual, b, C)}")
 
         best = population[0]
         # print(f"\nПоколение {gen+1}: Лучшее решение {best} с fitness {fitness(best, b, C)}")
@@ -330,7 +343,7 @@ def convertToString2(binaryList):
     return string
 
 # Перемещаем функцию run_test в глобальную область видимости
-def run_test(mutation_rate, mutation_rate_check, gen_check, crossover_method, publicKey, encrypted_result, flag_ver):
+def run_test(mutation_rate, mutation_rate_check, gen_check, crossover_method, publicKey, encrypted_result, flag_ver, output_file):
     start_time = time()
     print(
         f"\nТест: crossover={crossover_method.__name__}, mutation_rate={mutation_rate}, mutation_rate_check={mutation_rate_check}, gen_check={gen_check}")
@@ -355,14 +368,20 @@ def run_test(mutation_rate, mutation_rate_check, gen_check, crossover_method, pu
         "gen_check": gen_check,
         "generations": generations,
         "time": execution_time,
-        "fitness": fitness_value
+        "fitness": fitness_value,
+        "best_solution": best_solution
     }
 
     print(f"Результат: Поколения={generations}, Время={execution_time:.4f} сек, Fitness={fitness_value}")
-    return result  # Возвращаем результат для записи в файл
 
-def test_genetic_algorithm(test_cases, crossover_methods, output_file="ver13.txt", num_runs=None):
-    # Засекаем время начала работы программы
+    # Записываем в файл с использованием блокировки
+    with open(output_file, "a") as f:
+        f.write(str(result) + "\n")
+        f.flush()  # Принудительно записываем в файл (чтобы не ждать закрытия)
+
+    return result  # Возвращаем результат для дальнейшей обработки
+
+def test_genetic_algorithm(test_cases, crossover_methods, output_file="ver7.1_test_fix_super_5.txt", num_runs=None):
     start_program_time = time()
 
     results = []
@@ -370,30 +389,19 @@ def test_genetic_algorithm(test_cases, crossover_methods, output_file="ver13.txt
                        "Для запуска турниного отбора без сохранения лучшей особи при перезапуске введите любой символ: ")
     flag_ver = None if flag_input.strip() == "" else flag_input
 
-    # Открываем файл заранее для записи
-    with open(output_file, "a") as f:
-        # Создаём пул процессов для параллельного выполнения тестов
-        pool = multiprocessing.Pool(processes=6)
 
+    # Создаём пул процессов для параллельного выполнения тестов
+    with multiprocessing.Pool(processes=4) as pool:
         # Создаём список всех тестов, которые нужно запустить
         test_params = []
         for mutation_rate, mutation_rate_check, gen_check in test_cases:
             for crossover_method in crossover_methods:
                 for _ in range(num_runs):
-                    test_params.append((mutation_rate, mutation_rate_check, gen_check, crossover_method, publicKey, encrypted_result, flag_ver))
+                    test_params.append((mutation_rate, mutation_rate_check, gen_check, crossover_method, publicKey, encrypted_result, flag_ver, output_file))
 
         # Запуск тестов в параллельных процессах
         results = pool.starmap(run_test, test_params)
 
-        # После завершения всех тестов записываем результаты в файл
-        for result in results:
-            f.write(str(result) + "\n")
-            f.flush()  # Принудительно записываем в файл (чтобы не ждать закрытия)
-
-    pool.close()
-    pool.join()  # Завершаем пул после всех тестов
-
-    # Засекаем время окончания работы программы
     end_program_time = time()
     total_program_time = end_program_time - start_program_time
 
@@ -497,6 +505,10 @@ if __name__ == "__main__":
                 print("\nОШИБКА: отсутствуют необходимые данные. Попробуйте сгенерировать данные в пункте 1.")
 
         if inputs == "4":
+            # publicKey = [327684, 14745780, 31129980, 49480284, 109446456, 206768604, 80013337, 174772454, 12088829, 340334277, 334365007, 2337640, 338526835, 340252959, 678500, 11187520, 1403264, 21812200, 18720416, 45960616, 83729132, 171390472, 335571896, 13271202]
+            # # a = [0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1]
+            # encrypted_result = 1737348039
+
             if 'encrypted_result' in locals() and 'publicKey' in locals():
                 # Тестовые параметры
                 mutation_test_cases = [
