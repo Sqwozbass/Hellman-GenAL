@@ -1,9 +1,7 @@
 from random import randint
-
 """
-Алгорим Меркля-Хелмана Версия 2
+Алгорим Меркля-Хелмана Версия 3
 """
-
 def createSuperincreasingSequence(n):
     sequence = [1]
     for _ in range(n-1):
@@ -83,12 +81,15 @@ def encrypt(message, publicKey):
     encrypted = []
 
     for word in message:
+        # print("word,messege",word,message)
         wordTemp = []
 
         for char in word:
+            print("char,word", char,word)
             result = 0
 
             for i, bit in enumerate(char):
+                print("i,bit",i,bit, publicKey[i])
                 result += int(bit) * publicKey[i]
 
             wordTemp.append(result)
@@ -137,6 +138,10 @@ if __name__ == "__main__":
     binaryMessage = convertToBinary(message)
 
     encrypted = encrypt(binaryMessage, publicKey)
+    print("========",encrypted)
+    print(sum(encrypted[0]))
+
+
 
     print("\nЗашифрованное сообщение \"{}\"\n".format(formatMessage(encrypted, "binary")))
     print(len(format(formatMessage(encrypted, "binary"))))
