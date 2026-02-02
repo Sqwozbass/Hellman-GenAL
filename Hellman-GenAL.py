@@ -6,7 +6,7 @@ import subprocess
 Алгорим Меркля-Хелмана Версия 4
 Генетический алгоритм одно,двухточечный кросс, мутация одного бита, сброс с мутацией лучшей особи и процентом. 
 оставление лучшей особи или рандомной. Добавлено сравнение количества единиц с точным значением.
-"ЭКСПЕРИМЕНТ С TEST мутацией
+"ЭКСПЕРИМЕНТ С TEST мутацией - 1 или 2 бита по очереди, стагнация исправлена.
 """
 #Модули для Алгоритма Меркла-Хеллмана
 def createSuperincreasingSequence(n):
@@ -176,7 +176,8 @@ def mutate(solution, mutation_rate,Test, b=None, C=None):
     # Случайно решаем, будет ли мутация происходить
     if random.random() <= mutation_rate:
         if Test == 0:
-        # Выбираем один случайный индекс для мутации
+
+            # Выбираем один случайный индекс для мутации
             mutation_index = random.randint(0, len(mutated) - 1)
 
             # Флип бита
@@ -246,22 +247,22 @@ def crossover_two(parent1, parent2, b, C):
 
     return child1, child2
 
-def genetic_algorithm(b, C, ones, pop_size=1000, generations=100000, mutation_rate=1,mutation_rate_check=0.6, gen_check=500, crossover_func=None, flag_ver = None):
+def genetic_algorithm(b, C, ones, pop_size=5000, generations=100000, mutation_rate=1,mutation_rate_check=0.6, gen_check=500, crossover_func=None, flag_ver = None):
     #print(f"Идеальное с fitness {fitness(a, b, C)}")
+    reset_counter = 0  # Счётчик поколений
+    last_best_fitness = float('inf')  # Хранение лучшего fitness
 
     n = len(b)
-
     population = [random.choices([0, 1], k=n) for _ in range(pop_size)]
     # print("Изначальная популяция:")
     # for i in population:
     #     print(i)
-
     for gen in range(generations):
         new_population = []
         TEST = (gen + 1) % 2
         if flag_ver is None:
             # Лучшая особь и её мутации
-            if (gen + 1) % gen_check == 0:
+            if reset_counter >= gen_check-1:
                 best = min(population, key=lambda x: fitness(x, b, C))
                 new_population.append(best)
                 for _ in range(pop_size - 1):
@@ -269,7 +270,9 @@ def genetic_algorithm(b, C, ones, pop_size=1000, generations=100000, mutation_ra
                     new_population.append(mutated)
                 best_ones = sum(best)
                 ones_diff = abs(best_ones - ones) if ones is not None else "N/A"
-                print(f"\nПосле {gen+1} поколений: Лучшее решение {best} с fitness {fitness(best, b, C)},ed:{ones_diff}")
+                # print(f"\nПосле {gen+1} поколений: Лучшее решение {best} с fitness {fitness(best, b, C)},ed:{ones_diff}")
+                reset_counter = 0  # Сброс счетчика после обновления популяции
+                #print("СБРОССССС")
             else:
                 for i in range(len(population)):
                     parent1 = population[i]
@@ -283,12 +286,14 @@ def genetic_algorithm(b, C, ones, pop_size=1000, generations=100000, mutation_ra
                     # ones_diff = abs(best_ones - ones) if ones is not None else "N/A"
                     # print(f"Выбран лучший: {best} с fitness {fitness(best, b, C)},ed:{ones_diff}\n")
                     new_population.append(best)
+                reset_counter += 1  # Увеличиваем счётчик
             population = sorted(new_population, key=lambda x: fitness(x, b, C))[:pop_size]
         else:
             # Вместо выбора лучшей особи создаем новую случайную популяцию
-            if (gen + 1) % gen_check == 0:
+            if reset_counter >= gen_check-1:
                 new_population = [random.choices([0, 1], k=n) for _ in range(pop_size)]
                 print(f"\nПосле {gen + 1} поколений: Сгенерирована новая случайная популяция")
+                reset_counter = 0  # Сброс счетчика после обновления популяции
             else:
                 for i in range(len(population)):
                     parent1 = population[i]
@@ -298,13 +303,23 @@ def genetic_algorithm(b, C, ones, pop_size=1000, generations=100000, mutation_ra
                     child2 = mutate(child2, mutation_rate, TEST, b, C)
                     best = min([parent1, child1, child2], key=lambda x: fitness(x, b, C))
                     new_population.append(best)
+                reset_counter += 1  # Увеличиваем счётчик
             population = sorted(new_population, key=lambda x: fitness(x, b, C))[:pop_size]
 
-        # if gen % 250 == 0:
-        #     print(f"\nПоколение {gen}:")
-        #     print("Популяция:")
-        #     for individual in population[:8]:
-        #         print(f"{individual} с fitness {fitness(individual, b, C)}")
+        best = population[0]
+        current_fitness = fitness(best, b, C)
+
+        if current_fitness < last_best_fitness:
+            #print("УЛУЧШИЛОСЬ")
+            reset_counter = 0  # Если особь улучшилась, сбрасываем счетчик
+
+        last_best_fitness = current_fitness
+
+        if gen % 250 == 0:
+            print(f"\nПоколение {gen}:")
+            print("Популяция:")
+            for individual in population[:8]:
+                print(f"{individual} с fitness {fitness(individual, b, C)}")
         best = population[0]
         # print(f"\nПоколение {gen+1}: Лучшее решение {best} с fitness {fitness(best, b, C)}")
         if fitness(best, b, C) == 0:
@@ -324,9 +339,7 @@ def convertToString2(binaryList):
     return string
 
 
-def test_genetic_algorithm(test_cases, crossover_methods, output_file="ver5_test_compair.txt", num_runs=None):
-    start_program_time = time()
-
+def test_genetic_algorithm(test_cases, crossover_methods, output_file="ver6_2000.txt", num_runs=None):
     results = []
     flag_input = input("Для запуска турниного отбора с сохранением лучшей особи при перезапуске нажмите enter\n"
                        "Для запуска турниного отбора без сохранения лучшей особи при перезапуске введите любой символ: ")
@@ -369,9 +382,6 @@ def test_genetic_algorithm(test_cases, crossover_methods, output_file="ver5_test
                     f.flush()  # Принудительно записываем в файл (чтобы не ждать закрытия)
 
     print(f"\nРезультаты сохранены в {output_file}")
-    end_program_time = time()
-    total_program_time = end_program_time - start_program_time
-    print(f"Общее время работы программы: {total_program_time:.4f} сек")
 
 if __name__ == "__main__":
     print("\nПрограмма запущена. Выберите желаемое действие ↓↓↓\n")
@@ -409,10 +419,10 @@ if __name__ == "__main__":
 
         if inputs == "3":
             # encrypted = int(input("Введите зашифрованное слово:"))  # 3889444981
-            publicKey = [206703, 10541853, 24804360, 45888066, 84748230, 177557877, 354495645, 259355854, 73417035, 134225187, 280025742, 102768037, 207603104, 425334655, 382223901, 319979941, 190117743, 393877884, 331919242, 213169533, 414970401, 399322042, 336606468, 215516083]
+            #publicKey = [56235750, 5342396250, 10459849500, 16308367500, 33460271250, 68270200500, 138452416500, 112185908777, 56559927081, 115313048412, 68887667351, 133332710452, 102902504431, 44066579389, 84702778028, 7779598083, 13253530416, 30499799082, 58525225164, 118006458078, 69663155183, 141407033116, 120513279259, 72933489295, 147104165090, 131963778957, 96003195941, 31505148909, 59804860068, 123265043886, 82373521049, 163734798598]
             # a = [0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1]
-            encrypted_result = 2720101289
-            ones = 5
+            #encrypted_result = 1194928103296
+            #ones = 5
             if 'encrypted_result' in locals() and 'publicKey' in locals():
                 encrypted = int(encrypted_result)
                 # print(encrypted)
@@ -456,15 +466,15 @@ if __name__ == "__main__":
             if 'encrypted_result' in locals() and 'publicKey' in locals():
                 # Тестовые параметры
                 mutation_test_cases = [
-                    # (1, 0.4, 250),
-                    # (1, 0.4, 500),
-                    # (1, 0.4, 1000),
-                    # (1, 0.6, 250),
-                    # (1, 0.6, 500),
-                    # (1, 0.6, 1000),
-                    (1, "-", 250),
-                    (1, "-", 500),
-                    (1, "-", 1000)
+                    (1, 0.4, 250),
+                    (1, 0.4, 500),
+                    (1, 0.4, 1000),
+                    (1, 0.6, 250),
+                    (1, 0.6, 500),
+                    (1, 0.6, 1000),
+                    (1, 0.5, 250),
+                    (1, 0.5, 500),
+                    (1, 0.5, 1000)
                 ]
 
                 # Разные кроссоверы
