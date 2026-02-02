@@ -247,7 +247,7 @@ class Ui_Main(object):
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.checkBox_save_test_res = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_save_test_res.setGeometry(QtCore.QRect(1420, 365, 300, 25))
+        self.checkBox_save_test_res.setGeometry(QtCore.QRect(1420, 405, 300, 25))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.checkBox_save_test_res.setFont(font)
@@ -285,7 +285,7 @@ class Ui_Main(object):
         self.checkBox_multi.setIconSize(QtCore.QSize(16, 16))
         self.checkBox_multi.setObjectName("checkBox_multi")
         self.checkBox_multi_test = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_multi_test.setGeometry(QtCore.QRect(1420, 290, 330, 25))
+        self.checkBox_multi_test.setGeometry(QtCore.QRect(1420, 330, 330, 25))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.checkBox_multi_test.setFont(font)
@@ -689,7 +689,7 @@ class Ui_Main(object):
         self.label_name_3.setStyleSheet("color:rgb(212, 212, 212)")
         self.label_name_3.setObjectName("label_name_3")
         self.comboBox_dekod_al_4 = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_dekod_al_4.setGeometry(QtCore.QRect(1620, 230, 270, 45))
+        self.comboBox_dekod_al_4.setGeometry(QtCore.QRect(1620, 270, 270, 45))
         self.comboBox_dekod_al_4.setStyleSheet("QComboBox {\n"
                                                "font-size: 14px;\n"
                                                "background-color: rgb(220, 220, 220);\n"
@@ -720,7 +720,7 @@ class Ui_Main(object):
         self.comboBox_dekod_al_4.addItem("")
         self.comboBox_dekod_al_4.addItem("")
         self.label_evrist_test = QtWidgets.QLabel(self.centralwidget)
-        self.label_evrist_test.setGeometry(QtCore.QRect(1760, 200, 130, 25))
+        self.label_evrist_test.setGeometry(QtCore.QRect(1760, 240, 130, 25))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -730,7 +730,7 @@ class Ui_Main(object):
         self.label_evrist_test.setStyleSheet("color:rgb(212, 212, 212)")
         self.label_evrist_test.setObjectName("label_evrist_test")
         self.label_populations_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_populations_2.setGeometry(QtCore.QRect(1420, 200, 220, 25))
+        self.label_populations_2.setGeometry(QtCore.QRect(1420, 240, 220, 25))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -740,7 +740,7 @@ class Ui_Main(object):
         self.label_populations_2.setStyleSheet("color:rgb(212, 212, 212)")
         self.label_populations_2.setObjectName("label_populations_2")
         self.comboBox_dekod_al_5 = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_dekod_al_5.setGeometry(QtCore.QRect(1420, 230, 160, 45))
+        self.comboBox_dekod_al_5.setGeometry(QtCore.QRect(1420, 270, 160, 45))
         self.comboBox_dekod_al_5.setStyleSheet("QComboBox {\n"
                                                "font-size: 14px;\n"
                                                "background-color: rgb(220, 220, 220);\n"
@@ -800,6 +800,37 @@ class Ui_Main(object):
         self.lineEdit_count_test.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.lineEdit_count_test.setPlaceholderText("")
         self.lineEdit_count_test.setObjectName("lineEdit_count_test")
+        self.lineEdit_len = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_len.setGeometry(QtCore.QRect(1580, 195, 80, 35))
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.lineEdit_len.setFont(font)
+        self.lineEdit_len.setWhatsThis("")
+        self.lineEdit_len.setStyleSheet("QLineEdit {\n"
+                                               "background-color: rgb(33, 33, 45);\n"
+                                               "border: 3px solid;\n"
+                                               "border-color:  rgb(1, 130, 100);\n"
+                                               "border-radius: 10px;\n"
+                                               "padding:2px 2px 2px 2px;\n"
+                                               "color: grey;\n"
+                                               "}\n"
+                                               "\n"
+                                               "QLineEdit:hover {\n"
+                                               "background-color: rgb(33, 33, 45);\n"
+                                               "border: 3px solid;\n"
+                                               "border-color:rgb(154, 160, 231);\n"
+                                               "border-radius: 10px;\n"
+                                               "padding:2px 2px 2px 2px\n"
+                                               "}")
+        self.lineEdit_len.setText("")
+        self.lineEdit_len.setFrame(True)
+        self.lineEdit_len.setEchoMode(QtWidgets.QLineEdit.Normal)
+        self.lineEdit_len.setPlaceholderText("")
+        self.lineEdit_len.setObjectName("lineEdit_len")
         self.label_count_test = QtWidgets.QLabel(self.centralwidget)
         self.label_count_test.setGeometry(QtCore.QRect(1420, 160, 155, 25))
         font = QtGui.QFont()
@@ -810,6 +841,16 @@ class Ui_Main(object):
         self.label_count_test.setFont(font)
         self.label_count_test.setStyleSheet("color:rgb(212, 212, 212)")
         self.label_count_test.setObjectName("label_count_test")
+        self.label_len = QtWidgets.QLabel(self.centralwidget)
+        self.label_len.setGeometry(QtCore.QRect(1420, 200, 155, 25))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_len.setFont(font)
+        self.label_len.setStyleSheet("color:rgb(212, 212, 212)")
+        self.label_len.setObjectName("label_len")
         self.Button_load_test_params = QtWidgets.QPushButton(self.centralwidget)
         self.Button_load_test_params.setGeometry(QtCore.QRect(1710, 80, 170, 100))
         font = QtGui.QFont()
@@ -843,7 +884,7 @@ class Ui_Main(object):
         self.Button_load_test_params.setAutoRepeatInterval(100)
         self.Button_load_test_params.setObjectName("Button_load_test_params")
         self.label_test = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.label_test.setGeometry(QtCore.QRect(1420, 450, 460, 390))
+        self.label_test.setGeometry(QtCore.QRect(1420, 490, 460, 350))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label_test.setFont(font)
@@ -859,7 +900,7 @@ class Ui_Main(object):
         self.label_test.setReadOnly(True)
         self.label_test.setObjectName("label_test")
         self.Button_test_run = QtWidgets.QPushButton(self.centralwidget)
-        self.Button_test_run.setGeometry(QtCore.QRect(1470, 405, 210, 60))
+        self.Button_test_run.setGeometry(QtCore.QRect(1470, 445, 210, 60))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -892,7 +933,7 @@ class Ui_Main(object):
         self.Button_test_run.setObjectName("Button_test_run")
 
         self.Button_test_stop = QtWidgets.QPushButton(self.centralwidget)
-        self.Button_test_stop.setGeometry(QtCore.QRect(1700, 405, 150, 60))
+        self.Button_test_stop.setGeometry(QtCore.QRect(1700, 445, 150, 60))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -973,7 +1014,7 @@ class Ui_Main(object):
         self.label_view_test_res.setStyleSheet("color:rgb(212, 212, 212)")
         self.label_view_test_res.setObjectName("label_view_test_res")
         self.label_evrist_n_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_evrist_n_2.setGeometry(QtCore.QRect(1420, 330, 130, 25))
+        self.label_evrist_n_2.setGeometry(QtCore.QRect(1420, 370, 130, 25))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -983,7 +1024,7 @@ class Ui_Main(object):
         self.label_evrist_n_2.setStyleSheet("color:rgb(212, 212, 212)")
         self.label_evrist_n_2.setObjectName("label_evrist_n_2")
         self.lineEdit_save_file = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_save_file.setGeometry(QtCore.QRect(1550, 325, 320, 35))
+        self.lineEdit_save_file.setGeometry(QtCore.QRect(1550, 365, 320, 35))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(12)
@@ -1315,10 +1356,16 @@ class Ui_Main(object):
                 int(self.lineEdit_count_populations_2.text().strip()),
                 int(self.lineEdit_count_generat_2.text().strip()),
                 int(self.lineEdit_count_test.text().strip()),
+                int(self.lineEdit_len.text().strip()),
             ]
 
             if int(self.lineEdit_count_populations_2.text().strip()) <= 3:
                 self.show_error("Должно быть минимум 4 особи в поколении")
+                self.Button_test_run.setEnabled(True)
+                return False
+
+            if int(self.lineEdit_count_generat_2.text().strip()) <= 3:
+                self.show_error("Минимальная размерность задачи - 4")
                 self.Button_test_run.setEnabled(True)
                 return False
 
@@ -1378,69 +1425,42 @@ class Ui_Main(object):
 
     def decrypt_test_al_qui(self):
         try:
-            self.Button_test_run.setEnabled(False)  # Блокируем кнопку
-            if self.lineEdit_bits.text() != "":
+            if self.check_numeric_fields_test():
+                if self.save_filename_true():
+                    save_file = self.save_filename()
+                    multi = "" if self.checkBox_multi_test.isChecked() else "s"
 
-                bits = self.lineEdit_bits.text().strip()
-                if bits != "" and all(char in "01 " for char in bits):
-                    bits_clean = re.findall(r'[01]', bits)
-                    bits_formatted = ' '.join(bits_clean)
-                    if len(bits_clean) >= 4:
-                        if os.path.getsize("temp_data.json") != 0:
-                            with open("temp_data.json", "r") as f:
-                                data = json.load(f)
-                            bit_input = data["bit_input"]
-                            if bit_input == bits_formatted:
-                                if self.check_numeric_fields_test():
-                                    if self.save_filename_true():
-                                        save_file = self.save_filename()
-                                        multi = "" if self.checkBox_multi_test.isChecked() else "s"
-
-                                        if self.comboBox_dekod_al_4.currentText() == "Сброс с сохранением лучшей особи":
-                                            flag_input = ""
-                                        elif self.comboBox_dekod_al_4.currentText() == "Без эвристики":
-                                            flag_input = "∞"
-                                        else:
-                                            flag_input = "S"
-                                        gen_input = "" if self.comboBox_dekod_al_5.currentText() == "Классическая" else "S"
-
-                                        args = [
-                                            "C:/Program Files/pypy/pypy3.exe", "Logic_pypy.py", "decrypt_test_al_qui",
-                                            flag_input, gen_input,
-                                            self.lineEdit_count_test.text(),
-                                            self.lineEdit_count_populations_2.text(),
-                                            self.lineEdit_count_generat_2.text(),
-                                            self.config_file_path,
-                                            save_file,
-                                            multi
-                                        ]
-                                        # Очистим поле перед запуском
-                                        self.label_test.clear()
-                                        # Запускаем поток
-                                        self.worker = PyPyWorker(args)
-                                        self.worker.output_signal.connect(self.label_test.appendPlainText)
-                                        # Когда поток закончится — включим кнопку обратно
-                                        self.worker.finished.connect(lambda: self.Button_test_run.setEnabled(True))
-                                        self.worker.start()
-
-                            else:
-                                self.show_error("Сначала требуется выполнить кодирование последовательности")
-                                self.Button_test_run.setEnabled(True)
-                        else:
-                            self.show_error("Сначала требуется выполнить кодирование последовательности")
-                            self.Button_test_run.setEnabled(True)
+                    if self.comboBox_dekod_al_4.currentText() == "Сброс с сохранением лучшей особи":
+                        flag_input = ""
+                    elif self.comboBox_dekod_al_4.currentText() == "Без эвристики":
+                        flag_input = "∞"
                     else:
-                        self.show_error("Минимальное количество битов: 4")
-                        self.Button_test_run.setEnabled(True)
-                else:
-                    self.show_error("Вписаны могут быть только цифры: 1 или 0")
-                    self.Button_test_run.setEnabled(True)
-            else:
-                self.show_error("Введите битовую последовательность перед решением задачи")
-                self.Button_test_run.setEnabled(True)
+                        flag_input = "S"
+                    gen_input = "" if self.comboBox_dekod_al_5.currentText() == "Классическая" else "S"
+
+                    args = [
+                        "C:/Program Files/pypy/pypy3.exe", "Logic_pypy.py", "decrypt_test_al_qui",
+                        flag_input, gen_input,
+                        self.lineEdit_count_test.text(),
+                        self.lineEdit_count_populations_2.text(),
+                        self.lineEdit_count_generat_2.text(),
+                        self.config_file_path,
+                        save_file,
+                        multi,
+                        self.lineEdit_len.text(),
+                    ]
+                    # Очистим поле перед запуском
+                    self.label_test.clear()
+                    # Запускаем поток
+                    self.worker = PyPyWorker(args)
+                    self.worker.output_signal.connect(self.label_test.appendPlainText)
+                    # Когда поток закончится — включим кнопку обратно
+                    self.worker.finished.connect(lambda: self.Button_test_run.setEnabled(True))
+                    self.worker.start()
+
         except Exception as e:
             self.show_error(str(e))
-            self.Button_test_run.setEnabled(True)
+            self.Button_decrypt_al.setEnabled(True)
 
     def stop_tests(self):
         if hasattr(self, "worker") and self.worker.isRunning():
@@ -1455,16 +1475,18 @@ class Ui_Main(object):
 
     def retranslateUi(self, Main):
         _translate = QtCore.QCoreApplication.translate
-        self.lineEdit_bits.setText("0011 0000 0101 0111 0011 0001")
+        # self.lineEdit_bits.setText("0011 0000 0101 0111 0011 0001 1101")
+        self.lineEdit_bits.setText("0011 0000 0101 0111 0011 00")
         self.lineEdit_count_populations.setText("1700")
         self.lineEdit_count_populations_2.setText("1700")
-        self.lineEdit_count_generat.setText("100000")
-        self.lineEdit_count_generat_2.setText("100000")
+        self.lineEdit_count_generat.setText("200000")
+        self.lineEdit_count_generat_2.setText("200000")
         self.lineEdit_rate_mut.setText("1")
         self.lineEdit_rate_mut_evr.setText("0.5")
         self.lineEdit_evrist_n.setText("500")
         self.lineEdit_count_test.setText("1")
-        self.lineEdit_save_file.setText('24_бит_тестирование')
+        self.lineEdit_len.setText("28")
+        self.lineEdit_save_file.setText('28_бит_тестирование')
         Main.setWindowTitle(_translate("Main",
                                        "Hellman-GenAL: Программное средство для решения задачи о ранце модифицированной моделью Голдберга"))
         self.Button_dekod.setText(_translate("Main", "Решение задачи"))
@@ -1504,6 +1526,7 @@ class Ui_Main(object):
         self.comboBox_dekod_al_5.setItemText(0, _translate("Main", "Классическая"))
         self.comboBox_dekod_al_5.setItemText(1, _translate("Main", "Прогрессивная"))
         self.label_count_test.setText(_translate("Main", "Число тестирований:"))
+        self.label_len.setText(_translate("Main", "Размерность задачи:"))
         self.Button_load_test_params.setText(_translate("Main", "Импорт конфига"))
         self.Button_test_run.setText(_translate("Main", "Запуск тестирования"))
         self.Button_test_stop.setText(_translate("Main", "Остановка"))

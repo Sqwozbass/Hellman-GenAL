@@ -1,0 +1,1878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Main</class>
+ <widget class="QMainWindow" name="Main">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1900</width>
+    <height>1020</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Hellman-GenAL: Программное средство для решения задачи о ранце модифицированной моделью Голдберга</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(23, 23, 35);</string>
+   </property>
+   <widget class="QPlainTextEdit" name="label_dekod">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>830</y>
+      <width>570</width>
+      <height>180</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit {
+color: rgb(255, 255, 255);
+background-color: rgb(33, 33, 45);
+border: 5px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 20px;
+padding:10px 10px 10px 10px
+}
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="label_kod">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>220</y>
+      <width>570</width>
+      <height>570</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit {
+color: rgb(255, 255, 255);
+background-color: rgb(33, 33, 45);
+border: 5px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 20px ;
+padding:10px 10px 10px 10px
+}
+
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_dekod">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>775</y>
+      <width>250</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+background-color: rgb(33, 33, 85);
+border: 6px solid;
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+}
+
+QPushButton:hover {
+border: 3px solid;
+background-color: rgb(12, 12, 52);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+transition: background-color 0.5s ease;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Декодирование</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="Line" name="line_1">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>10</y>
+      <width>3</width>
+      <height>1000</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(83, 83, 83);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_kod">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>70</y>
+      <width>400</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 5px;
+padding:5px 5px 5px 5px;
+color: black;
+}
+
+QComboBox:hover {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 5px;
+padding:5px 5px 5px 5px
+}
+
+QComboBox  QAbstractItemView {
+background-color: rgb(220, 220, 220);
+}
+                                  
+
+                                   </string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Алгоритм Меркла-Хелмана</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Модифицированная модель Голдберга</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_bits">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>130</y>
+      <width>500</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string>Введите битовую последовательность. Минимум 4 бита.</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_name_1">
+    <property name="geometry">
+     <rect>
+      <x>85</x>
+      <y>20</y>
+      <width>430</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Кодирование битовой последовательности</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_kod">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>175</y>
+      <width>250</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+background-color: rgb(33, 33, 85);
+border: 6px solid;
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+padding:3px 3px 3px 3px;
+}
+
+
+QPushButton:hover {
+border: 3px solid;
+background-color: rgb(12, 12, 52);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+transition: background-color 0.5s ease;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Кодирование</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_name_2">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>20</y>
+      <width>720</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Получение результата с помощью модифицированной модели Голдберга</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>1400</x>
+      <y>10</y>
+      <width>3</width>
+      <height>1000</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(83, 83, 83);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_save_test_res">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>290</y>
+      <width>300</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QCheckBox:hover {
+padding:2px 2px 2px 2px;
+color: rgb(1, 130, 100);
+}</string>
+    </property>
+    <property name="text">
+     <string>Сохранять результаты в файл</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>16</width>
+      <height>16</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_dekod_al">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>100</y>
+      <width>280</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 5px;
+padding:5px 5px 5px 5px;
+color: black;
+}
+
+QComboBox:hover {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 5px;
+padding:5px 5px 5px 5px
+}
+
+QComboBox  QAbstractItemView {
+background-color: rgb(220, 220, 220);
+}
+                                  
+
+                                   </string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Сброс с сохранением лучшей особи</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Сброс без сохранения лучшей особи</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_evrist">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>70</y>
+      <width>130</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Тип эвристики</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_dekod_al_2">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>100</y>
+      <width>180</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 5px;
+padding:5px 5px 5px 5px;
+color: black;
+}
+
+QComboBox:hover {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 5px;
+padding:5px 5px 5px 5px
+}
+
+QComboBox  QAbstractItemView {
+background-color: rgb(220, 220, 220);
+}
+                                  
+
+                                   </string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Одноточечный</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Двухточечный</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_crossover">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>70</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Кроссовер</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_populations">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>70</y>
+      <width>220</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Тип начальной популяции</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_dekod_al_3">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>100</y>
+      <width>220</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 5px;
+padding:5px 5px 5px 5px;
+color: black;
+}
+
+QComboBox:hover {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 5px;
+padding:5px 5px 5px 5px
+}
+
+QComboBox  QAbstractItemView {
+background-color: rgb(220, 220, 220);
+}
+                                  
+
+                                   </string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Классическая</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Прогрессивная</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_count_populations">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>155</y>
+      <width>80</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_count_generat">
+    <property name="geometry">
+     <rect>
+      <x>1050</x>
+      <y>155</y>
+      <width>80</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_rate_mut">
+    <property name="geometry">
+     <rect>
+      <x>1320</x>
+      <y>155</y>
+      <width>60</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_rate_mut_evr">
+    <property name="geometry">
+     <rect>
+      <x>905</x>
+      <y>205</y>
+      <width>60</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_evrist_n">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>205</y>
+      <width>80</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_count_populations">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>160</y>
+      <width>190</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Численность популяции:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_count_generat">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>160</y>
+      <width>135</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Число поколений:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_rate_mut">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>160</y>
+      <width>165</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Вероятность мутации:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_count_populations_2">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>210</y>
+      <width>275</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Вероятность мутации при эвристике:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_evrist_n">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>210</y>
+      <width>130</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Точка эвристики:</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="label_decrypt_al">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>295</y>
+      <width>760</width>
+      <height>715</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit {
+color: rgb(255, 255, 255);
+background-color: rgb(33, 33, 45);
+border: 5px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 20px ;
+padding:10px 10px 10px 10px
+}
+
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_decrypt_al">
+    <property name="geometry">
+     <rect>
+      <x>875</x>
+      <y>250</y>
+      <width>250</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+border: 6px solid;
+background-color: rgb(33, 33, 85);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+padding:3px 3px 3px 3px;
+}
+
+
+QPushButton:hover {
+border: 3px solid;
+background-color: rgb(12, 12, 52);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+transition: background-color 0.5s ease;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Получение результата</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_name_3">
+    <property name="geometry">
+     <rect>
+      <x>1550</x>
+      <y>20</y>
+      <width>200</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Блок тестирования</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_dekod_al_4">
+    <property name="geometry">
+     <rect>
+      <x>1620</x>
+      <y>230</y>
+      <width>270</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 5px;
+padding:5px 5px 5px 5px;
+color: black;
+}
+
+QComboBox:hover {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 5px;
+padding:5px 5px 5px 5px
+}
+
+QComboBox  QAbstractItemView {
+background-color: rgb(220, 220, 220);
+}
+                                  
+
+                                   </string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Сброс с сохранением лучшей особи</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Сброс без сохранения лучшей особи</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_evrist_test">
+    <property name="geometry">
+     <rect>
+      <x>1760</x>
+      <y>200</y>
+      <width>130</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Тип эвристики</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_populations_2">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>200</y>
+      <width>220</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Тип начальной популяции</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_dekod_al_5">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>230</y>
+      <width>160</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 5px;
+padding:5px 5px 5px 5px;
+color: black;
+}
+
+QComboBox:hover {
+font-size: 14px;
+background-color: rgb(220, 220, 220);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 5px;
+padding:5px 5px 5px 5px
+}
+
+QComboBox  QAbstractItemView {
+background-color: rgb(220, 220, 220);
+}
+                                  
+
+                                   </string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Классическая</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Прогрессивная</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_count_test">
+    <property name="geometry">
+     <rect>
+      <x>1580</x>
+      <y>155</y>
+      <width>80</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_count_test">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>160</y>
+      <width>155</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Число тестирований:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_load_test_params">
+    <property name="geometry">
+     <rect>
+      <x>1710</x>
+      <y>80</y>
+      <width>170</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+border: 6px solid;
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+background-color: rgb(33, 33, 85);
+padding:3px 3px 3px 3px;
+}
+
+
+QPushButton:hover {
+border: 3px solid;
+background-color: rgb(12, 12, 52);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+transition: background-color 0.5s ease;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Иморт конфига</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="label_test">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>420</y>
+      <width>460</width>
+      <height>420</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit {
+color: rgb(255, 255, 255);
+background-color: rgb(33, 33, 45);
+border: 5px solid;
+border-color: rgb(124, 124, 124);
+border-radius: 20px;
+padding:10px 10px 10px 10px
+}
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_test_run">
+    <property name="geometry">
+     <rect>
+      <x>1470</x>
+      <y>375</y>
+      <width>210</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+border: 6px solid;
+background-color: rgb(33, 33, 85);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+padding:3px 3px 3px 3px;
+}
+
+
+QPushButton:hover {
+border: 3px solid;
+background-color: rgb(12, 12, 52);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+transition: background-color 0.5s ease;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Запуск тестирования</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>1415</x>
+      <y>850</y>
+      <width>470</width>
+      <height>3</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(83, 83, 83);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_view_test_res">
+    <property name="geometry">
+     <rect>
+      <x>1475</x>
+      <y>910</y>
+      <width>350</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+border: 5px solid;
+border-color:  rgb(154, 160, 231);
+background-color: rgb(33, 33, 85);
+border-radius: 30px;
+padding:3px 3px 3px 3px;
+}
+
+
+QPushButton:hover {
+border: 3px solid;
+background-color: rgb(1, 130, 100);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+transition: background-color 0.5s ease;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Просмотр</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_view_test_res">
+    <property name="geometry">
+     <rect>
+      <x>1470</x>
+      <y>860</y>
+      <width>360</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Простотр результатов тестирования</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_evrist_n_2">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>330</y>
+      <width>130</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Название файла:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_save_file">
+    <property name="geometry">
+     <rect>
+      <x>1550</x>
+      <y>325</y>
+      <width>320</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_count_generat_2">
+    <property name="geometry">
+     <rect>
+      <x>1565</x>
+      <y>115</y>
+      <width>80</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_count_populations_2">
+    <property name="geometry">
+     <rect>
+      <x>1610</x>
+      <y>75</y>
+      <width>80</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color:  rgb(1, 130, 100);
+border-radius: 10px;
+padding:2px 2px 2px 2px;
+color: grey;
+}
+
+QLineEdit:hover {
+background-color: rgb(33, 33, 45);
+border: 3px solid;
+border-color: rgb(154, 160, 231);
+border-radius: 10px;
+padding:2px 2px 2px 2px
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_count_generat_2">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>120</y>
+      <width>135</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Число поколений:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_count_populations_3">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>80</y>
+      <width>190</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Численность популяции:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_test_run_2">
+    <property name="geometry">
+     <rect>
+      <x>1700</x>
+      <y>375</y>
+      <width>150</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+border: 5px solid;
+background-color: rgb(240, 0, 0);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+padding:3px 3px 3px 3px;
+}
+
+
+QPushButton:hover {
+border: 3px solid;
+background-color: rgb(130, 0, 0);
+border-color:  rgb(154, 160, 231);
+border-radius: 30px;
+transition: background-color 0.5s ease;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Остановка</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_count_test_2">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>200</y>
+      <width>155</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(212, 212, 212)</string>
+    </property>
+    <property name="text">
+     <string>Число тестирований:</string>
+    </property>
+   </widget>
+  </widget>
+  <action name="action_3">
+   <property name="text">
+    <string>Открыть</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -77,7 +77,7 @@ def createSuperincreasingSequence(n):
 
 #функция для создания зашифрованного сообщения задачи о ранце
 def encrypt(bit_sequence, publicKey):
-    print("==============ШИФРОВАНИЕ==============")
+    print("\n==============ШИФРОВАНИЕ=============")
     if len(bit_sequence) != len(publicKey):
         raise ValueError("Длина битовой последовательности должна совпадать с длиной открытого ключа.")
     result = 0
@@ -352,17 +352,24 @@ def run_test(pop_size, generations,mutation_rate, mutation_rate_check, gen_check
             f.flush()  # Принудительно записываем в файл
     return result
 
-#функция реализующая распараллеленное или однопоточное тестировнаие модели
-def test_genetic_algorithm(pop_size, generations,publicKey, encrypted_result, flag_ver, gen_ver, test_cases, crossover_methods, save_file,multi, num_runs=None):
+#функция реализующая подготовку данных для тестирования модели, а также результаты
+def test_genetic_algorithm(pop_size, generations,publicKey, encrypted_result, flag_ver, gen_ver, test_cases, crossover_methods, save_file,multi, len_zadacha, num_runs=None):
     try:
         start_program_time = time()
         results = []
         test_params = []
-        for mutation_rate, mutation_rate_check, gen_check in test_cases:
-            if flag_ver is not None:
-                mutation_rate_check = "-"
-            for crossover_method in crossover_methods:
-                for _ in range(num_runs):
+
+        print("Запущено создание задач..\n")
+        for run_idx in range(num_runs):
+            bit_sequence = random.choices([0, 1], k=len_zadacha)
+            sequence, publicKey, randInt1, randInt2 = createKey_mod(len(bit_sequence), 4)
+            encrypted_result = encrypt(bit_sequence, publicKey)
+
+            for mutation_rate, mutation_rate_check, gen_check in test_cases:
+                if flag_ver is not None:
+                    mutation_rate_check = "-"
+
+                for crossover_method in crossover_methods:
                     test_params.append((
                         pop_size, generations, mutation_rate,
                         mutation_rate_check, gen_check,
@@ -425,7 +432,7 @@ def algoritm_parallel(b, C, pop_size, mutation_rate, mutation_rate_check,
     result_holder = manager.list()
 
     args_list = [
-        (chunk, b, C, generations, mutation_rate, mutation_rate_check, gen_check,
+        (chunk, b, C, generations, mutation_rate, mutation_rate_check, int(gen_check)//num_processes,
          crossover_func, flag_ver, stop_flag, result_holder)
         for chunk in population_chunks
     ]
@@ -467,7 +474,8 @@ def run_genetic_subprocess(population_chunk, b, C, generations, mutation_rate, m
     population = population_chunk.copy()
 
     for gen in range(generations):
-        if gen + 1 % gen_check == 0 and stop_flag.is_set():
+        check_interval = int(gen_check) // 4 if int(gen_check) >= 4 else 1
+        if (gen + 1) % check_interval == 0 and stop_flag.is_set():
             return None
         new_population = []
         TEST = (gen + 1) % 2
@@ -544,7 +552,7 @@ def encrypt_qui(flag_ver_encrypt, bit_input):
         print("Открытый ключ:", publicKey)
         encrypted_result = encrypt(bit_sequence, publicKey)
         print(f"\nЗашифрованная сумма: {encrypted_result}")
-        check_encrypted_result_uniqueness(publicKey, encrypted_result)
+        #check_encrypted_result_uniqueness(publicKey, encrypted_result)
     else:
         bit_sequence = list(map(int, bit_input.strip().split()))
         sequence, publicKey, randInt1, randInt2 = createKey(len(bit_sequence))
@@ -637,7 +645,7 @@ def decrypt_al_qui(flag_input,funk_input,gen_input, pop_size, generations, mutat
         print("\nОШИБКА: отсутствуют необходимые данные. Попробуйте сгенерировать данные.")
 
 #функция реализующая тестирование решения задачи о ранце алгоритмом Меркла-Хеллмана (по кнопке)
-def decrypt_test_al_qui(flag_input,gen_input, count_tests, pop_size, generations, config_file_path, save_file, multi):
+def decrypt_test_al_qui(flag_input,gen_input, count_tests, pop_size, generations, config_file_path, save_file, multi,len_zadacha):
     with open("temp_data.json", "r") as f:
         data = json.load(f)
     encrypted_result = data["encrypted_result"]
@@ -664,7 +672,7 @@ def decrypt_test_al_qui(flag_input,gen_input, count_tests, pop_size, generations
         gen_ver = "Классическая" if gen_input.strip() == "" else "Прогрессивная"
         save_file = None if save_file == "" else save_file
         # Запуск тестов
-        test_genetic_algorithm(int(pop_size), int(generations), publicKey, encrypted_result, flag_ver, gen_ver, mutation_test_cases, crossover_variants,save_file, multi,num_runs=int(count_tests))
+        test_genetic_algorithm(int(pop_size), int(generations), publicKey, encrypted_result, flag_ver, gen_ver, mutation_test_cases, crossover_variants,save_file, multi,int(len_zadacha),num_runs=int(count_tests))
     else:
         print("\nОШИБКА: отсутствуют необходимые данные. Попробуйте сгенерировать данные в пункте 1.")
 
