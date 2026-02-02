@@ -1,12 +1,12 @@
 from random import randint
 
 """
-Алгорим Меркля-Хелмана Версия 1
+Алгорим Меркля-Хелмана Версия 2
 """
 
-def createSuperincreasingSequence():
+def createSuperincreasingSequence(n):
     sequence = [1]
-    for _ in range(7):
+    for _ in range(n-1):
         sequence.append(sum(sequence) + randint(1, 100))
     return sequence
 
@@ -69,12 +69,12 @@ def generate_prime(start):
         if is_prime(candidate):
             return candidate
 
-def createKey():
-    sequence = createSuperincreasingSequence()  # супервозрастающая последовательность
+def createKey(n):
+    sequence = createSuperincreasingSequence(n)  # супервозрастающая последовательность
     publicKey = []
     randInt1 = generate_prime(sum(sequence))
     randInt2 = randInt1 - randint(0, randInt1)  #r
-    for i in range(8):
+    for i in range(n):
         publicKey.append((sequence[i] * randInt2) % randInt1)
     return sequence, publicKey, randInt1, randInt2
 
@@ -126,9 +126,9 @@ def decrypt(message, sequence, randInt1, randInt2):
 
 if __name__ == "__main__":
     message = input("Введите текст:").split()
-
-    sequence, publicKey, randInt1, randInt2 = createKey()
-    print('супервозрастающая последовательность:',sequence)
+    n = len(message[0])*8
+    sequence, publicKey, randInt1, randInt2 = createKey(n)
+    print('Cупервозрастающая последовательность:',sequence)
 
     print("q:", randInt1)
     print("r:", randInt2)
@@ -139,6 +139,7 @@ if __name__ == "__main__":
     encrypted = encrypt(binaryMessage, publicKey)
 
     print("\nЗашифрованное сообщение \"{}\"\n".format(formatMessage(encrypted, "binary")))
+    print(len(format(formatMessage(encrypted, "binary"))))
 
     decrypted = decrypt(encrypted, sequence, randInt1, randInt2)
     print("ff",decrypted)
